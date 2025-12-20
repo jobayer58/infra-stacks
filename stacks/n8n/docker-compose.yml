@@ -22,7 +22,7 @@ services:
       - DB_SQLITE_POOL_SIZE
 
     volumes:
-      - ${HOST_DATA_PATH}:/home/node/.n8n
+      - ${HOST_DATA_PATH}/n8n:/home/node/.n8n
       
     networks:
       - proxy
