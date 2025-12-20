@@ -1,0 +1,18 @@
+# Ignore environment variable files
+.env
+*.env
+
+# Ignore Docker-related files
+*_data/
+/infra_data/
+/traefik_data/
+/monitoring_data/
+/chatwoot_data/
+
+# Ignore Traefik configuration file
+acme.json
+
+# Ignore system files and IDE configurations
+.DS_Store
+.idea/
+.vscode/
