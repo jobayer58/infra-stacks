@@ -1,0 +1,42 @@
+services:
+  traefik:
+    image: traefik:v3.6.4
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - CF_API_EMAIL=${CF_API_EMAIL} 
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${HOST_DATA_PATH}/acme.json:/acme.json
+    command:
+      - "--api.dashboard=true"
+      - "--log.level=INFO"
+      - "--accesslog=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=proxy"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/acme.json"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik_panel.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.traefik_panel.service=api@internal"
+      - "traefik.http.routers.traefik_panel.tls.certresolver=myresolver"
+      - "traefik.http.routers.traefik_panel.entrypoints=websecure"
+
+networks:
+  proxy:
+    external: true

@@ -1,0 +1,54 @@
+version: '3.9'
+
+services:
+  affine:
+    image: ghcr.io/toeverything/affine:${AFFINE_REVISION:-stable}
+    container_name: affine_server
+    restart: unless-stopped
+    depends_on:
+      affine_migration:
+        condition: service_completed_successfully
+    volumes:
+      - ${HOST_DATA_PATH}/storage:/root/.affine/storage
+      - ${HOST_DATA_PATH}/config:/root/.affine/config
+    environment:
+      - REDIS_SERVER_HOST
+      - REDIS_SERVER_PORT
+      - REDIS_SERVER_PASSWORD
+      - DATABASE_URL
+      - AFFINE_SERVER_HOST=${AFFINE_DOMAIN}
+      - AFFINE_INDEXER_ENABLED
+      - MAILER_HOST
+      - MAILER_PORT
+      - MAILER_USER
+      - MAILER_PASSWORD
+      - MAILER_SENDER
+    networks:
+      - proxy
+    
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.affine.rule=Host(`${AFFINE_DOMAIN}`)"
+      - "traefik.http.routers.affine.entrypoints=websecure"
+      - "traefik.http.routers.affine.tls.certresolver=myresolver"
+      - "traefik.http.services.affine.loadbalancer.server.port=3010"
+
+  affine_migration:
+    image: ghcr.io/toeverything/affine:${AFFINE_REVISION:-stable}
+    container_name: affine_migration_job
+    command: ['sh', '-c', 'node ./scripts/self-host-predeploy.js']
+    volumes:
+      - ${HOST_DATA_PATH}/storage:/root/.affine/storage
+      - ${HOST_DATA_PATH}/config:/root/.affine/config
+    environment:
+      - REDIS_SERVER_HOST
+      - REDIS_SERVER_PORT
+      - REDIS_SERVER_PASSWORD
+      - DATABASE_URL
+      - AFFINE_INDEXER_ENABLED
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

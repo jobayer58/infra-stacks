@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  n8n:
+    container_name: n8n
+    image: n8nio/n8n:latest
+    restart: always
+    
+    environment:
+      - N8N_HOST=${N8N_DOMAIN}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://${N8N_DOMAIN}/
+      - N8N_TRUST_PROXY
+      - NODE_ENV
+      - NODE_OPTIONS
+      - N8N_RUNNERS_ENABLED
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE
+      - N8N_GIT_NODE_DISABLE_BARE_REPOS
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS
+      - GENERIC_TIMEZONE
+      - DB_SQLITE_POOL_SIZE
+
+    volumes:
+      - ${HOST_DATA_PATH}:/home/node/.n8n
+      
+    networks:
+      - proxy
+      
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.n8n_r.rule=Host(`${N8N_DOMAIN}`)"
+      - "traefik.http.routers.n8n_r.entrypoints=websecure"
+      - "traefik.http.routers.n8n_r.tls.certresolver=myresolver" 
+      - "traefik.http.services.n8n_s.loadbalancer.server.port=5678"
+      - "traefik.http.routers.n8n_r.middlewares=secure-headers@file"
+
+networks:
+  proxy:
+    external: true

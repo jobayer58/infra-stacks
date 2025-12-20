@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: postgres
+    image: pgvector/pgvector:pg16
+    restart: always
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    volumes:
+      - ${HOST_DATA_PATH}/postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - proxy
+
+  redis:
+    container_name: redis
+    image: redis:8.4.0-alpine
+    restart: always
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+    environment:
+      - REDIS_PASSWORD
+    volumes:
+      - ${HOST_DATA_PATH}/redis:/data
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
+    name: proxy

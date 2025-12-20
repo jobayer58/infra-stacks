@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  evolution_api:
+    container_name: evolution_api
+    image: evoapicloud/evolution-api:v2.3.7
+    restart: always
+    environment:
+      - SERVER_URL=https://${EVOLUTION_DOMAIN}
+      - SERVER_PORT
+      - AUTHENTICATION_API_KEY
+      - AUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES
+      - DEL_INSTANCE
+      - CACHE_REDIS_ENABLED
+      - CACHE_REDIS_URI
+      - CACHE_REDIS_PREFIX_KEY
+      - CACHE_REDIS_SAVE_INSTANCES
+      - WEBHOOK_GLOBAL_ENABLED
+      - RABBITMQ_ENABLED
+      - WEBSOCKET_ENABLED
+      - WEBSOCKET_GLOBAL_EVENTS
+      - DATABASE_PROVIDER
+      - DATABASE_CONNECTION_URI
+      - DATABASE_SAVE_DATA_INSTANCE
+      - CHATWOOT_ENABLED
+      - NODE_TLS_REJECT_UNAUTHORIZED
+      - CONFIG_SESSION_PHONE_VERSION
+      - OPEN_AI_ENABLED
+      - WA_BUSINESS_LANGUAGE
+    volumes:
+      - ${HOST_DATA_PATH}/instances:/evolution/instances
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.evolution_m.rule=Host(`${EVOLUTION_DOMAIN}`)"
+      - "traefik.http.routers.evolution_m.entrypoints=websecure"
+      - "traefik.http.routers.evolution_m.tls.certresolver=myresolver"
+      - "traefik.http.services.evolution_m.loadbalancer.server.port=8080"
+      - "traefik.http.services.evolution_m.loadbalancer.passHostHeader=true"
+
+networks:
+  proxy:
+    external: true
