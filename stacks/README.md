@@ -11,6 +11,7 @@ Here you will find all the independent services available in this repository. Ea
 | **[Chatwoot](./chatwoot)** | Support | Open-source customer engagement suite. |
 | **[Affine](./affine)** | Productivity | Next-gen knowledge base (Notion/Miro alternative). |
 | **[Infra DB](./infra-db)** | Database | Shared PostgreSQL & Redis containers. |
+| **[Laravel](./laravel)** | Web | Laravel Production Setup |
 
 ## ⚡ Quick Tips
 - **Dependencies:** Some stacks _(like Chatwoot and n8n)_ depend on **Infra DB**. Deploy that first.
